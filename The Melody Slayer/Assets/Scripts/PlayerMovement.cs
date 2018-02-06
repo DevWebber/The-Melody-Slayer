@@ -13,12 +13,15 @@ public class PlayerMovement : MonoBehaviour {
     private Transform leftEndPoint;
     [SerializeField]
     private Transform rightEndPoint;
-
-    private float xAxis;
     [SerializeField]
     private float playerSpeed;
 
+    private float xAxis;
+    [SerializeField]
+    private bool isKeyboardMovement;
+
     private Vector3 movementVector;
+    private Vector2 mousePosition;
 
     private void Start()
     {
@@ -27,9 +30,17 @@ public class PlayerMovement : MonoBehaviour {
 
     void Update()
     {
-        xAxis = Input.GetAxis("Horizontal") * Time.deltaTime * playerSpeed;
-        movementVector.x = xAxis;
-        transform.Translate(movementVector);
+        if (isKeyboardMovement)
+        {
+            xAxis = Input.GetAxis("Horizontal") * Time.deltaTime * playerSpeed;
+            movementVector.x = xAxis;
+            transform.Translate(movementVector);
+        }
+        else
+        {
+            mousePosition = Input.mousePosition;
+            movementVector = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 5.0f));
+        }
 
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, leftEndPoint.position.x, rightEndPoint.position.x), transform.position.y, transform.position.z);
     }
