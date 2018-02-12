@@ -3,14 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NoteBehaviour : MonoBehaviour {
+    [SerializeField]
+    private float seconds = 10f;
+    [SerializeField][Range(0.1f, 100)]
+    private float noteSpeed = 10f;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    private void OnEnable()
+    {
+        StartCoroutine(DisableAfterTime());
+    }
+
+    IEnumerator DisableAfterTime()
+    {
+        yield return new WaitForSeconds(seconds);
+
+        //gameObject.SetActive(false);
+        Destroy(gameObject);
+    }
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update()
+    {
+		if (gameObject.activeInHierarchy == true)
+        {
+            transform.Translate(new Vector3(0, 0, -(noteSpeed) * Time.deltaTime));
+        }
 	}
 }
