@@ -5,8 +5,8 @@ using UnityEngine;
 public class NoteBehaviour : MonoBehaviour {
     [SerializeField]
     private float seconds = 10f;
-    [SerializeField][Range(0.1f, 100)]
-    private float noteSpeed = 10f;
+    [SerializeField]
+    private float noteSpeed = 10000f;
 
     private Rigidbody selfBody;
 
@@ -30,7 +30,7 @@ public class NoteBehaviour : MonoBehaviour {
 		if (gameObject.activeInHierarchy == true)
         {
             //transform.Translate(new Vector3(0, 0, -(noteSpeed) * Time.deltaTime));
-            selfBody.velocity = transform.forward * noteSpeed * Time.deltaTime;
+            selfBody.velocity = transform.forward * -noteSpeed * Time.deltaTime;
         }
 	}
 }

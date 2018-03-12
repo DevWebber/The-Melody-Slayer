@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class HittingMechanic : MonoBehaviour {
 
+    public delegate void UpdateHits(int hitType);
+    public static event UpdateHits OnUpdateHits;
+
     [SerializeField]
     private BoxCollider[] hitColliders;
     private bool[] isColliderActive;
     private GameObject noteHit;
-
-
     
     void Start()
     {
         for (int i = 0; i < hitColliders.Length; i++)
         {
-            hitColliders[i].enabled = false;
+            //hitColliders[i].enabled = false;
         }
 
         isColliderActive = new bool[hitColliders.Length];
@@ -30,16 +31,17 @@ public class HittingMechanic : MonoBehaviour {
     {
         for (int i = 0; i < hitColliders.Length; i++)
         {
-            hitColliders[i].enabled = true;
+            //hitColliders[i].enabled = true;
 
             if (isColliderActive[i])
             {
-                Debug.Log("Hit =" + isColliderActive[i]);
-                hitColliders[i].enabled = false;
+                noteHit.SetActive(false);
+                OnUpdateHits(i);
+                //hitColliders[i].enabled = false;
                 break;
             }
 
-            hitColliders[i].enabled = false;
+            //hitColliders[i].enabled = false;
         }
     }
 
