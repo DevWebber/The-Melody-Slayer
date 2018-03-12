@@ -8,9 +8,12 @@ public class NoteBehaviour : MonoBehaviour {
     [SerializeField][Range(0.1f, 100)]
     private float noteSpeed = 10f;
 
+    private Rigidbody selfBody;
+
     private void OnEnable()
     {
         StartCoroutine(DisableAfterTime());
+        selfBody = GetComponent<Rigidbody>();
     }
 
     IEnumerator DisableAfterTime()
@@ -26,7 +29,8 @@ public class NoteBehaviour : MonoBehaviour {
     {
 		if (gameObject.activeInHierarchy == true)
         {
-            transform.Translate(new Vector3(0, 0, -(noteSpeed) * Time.deltaTime));
+            //transform.Translate(new Vector3(0, 0, -(noteSpeed) * Time.deltaTime));
+            selfBody.velocity = transform.forward * noteSpeed * Time.deltaTime;
         }
 	}
 }
