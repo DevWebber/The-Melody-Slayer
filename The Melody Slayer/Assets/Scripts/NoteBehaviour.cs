@@ -30,7 +30,7 @@ public class NoteBehaviour : MonoBehaviour {
 		if (gameObject.activeInHierarchy == true)
         {
             //transform.Translate(new Vector3(0, 0, -(noteSpeed) * Time.deltaTime));
-            selfBody.velocity = transform.forward * -noteSpeed * Time.deltaTime;
+            selfBody.velocity = transform.forward * (float)(-noteSpeed * Time.deltaTime);
         }
 	}
 }

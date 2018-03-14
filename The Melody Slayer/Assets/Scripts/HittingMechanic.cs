@@ -11,6 +11,8 @@ public class HittingMechanic : MonoBehaviour {
     private BoxCollider[] hitColliders;
     private bool[] isColliderActive;
     private GameObject noteHit;
+
+    public Queue<GameObject> noteQueue;
     
     void Start()
     {
@@ -20,6 +22,7 @@ public class HittingMechanic : MonoBehaviour {
         }
 
         isColliderActive = new bool[hitColliders.Length];
+        noteQueue = new Queue<GameObject>();
     }
 	
 	void Update()
@@ -35,6 +38,7 @@ public class HittingMechanic : MonoBehaviour {
 
             if (isColliderActive[i])
             {
+                noteHit = noteQueue.Dequeue();
                 noteHit.SetActive(false);
                 OnUpdateHits(i);
                 //hitColliders[i].enabled = false;
@@ -43,6 +47,14 @@ public class HittingMechanic : MonoBehaviour {
 
             //hitColliders[i].enabled = false;
         }
+    }
+
+    public void MissBarrierActivation()
+    {
+        //Simulate a miss
+        noteHit = noteQueue.Dequeue();
+        noteHit.SetActive(false);
+        OnUpdateHits(2);
     }
 
     public bool[] ActiveColliders

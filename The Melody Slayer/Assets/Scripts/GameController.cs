@@ -13,6 +13,12 @@ public class GameController : MonoBehaviour {
     private int totalScore;
     private int totalCombo;
     private float totalAccuracy;
+    private float currentHealth = 100;
+
+    [SerializeField][Range(1, 100)]
+    private int mapHealthRecovery;
+    [SerializeField][Range(1,40)]
+    private int mapHealthDecay;
 
     [SerializeField]
     private Text scoreText;
@@ -20,6 +26,8 @@ public class GameController : MonoBehaviour {
     private Text accuracyText;
     [SerializeField]
     private Text comboText;
+    [SerializeField]
+    private Slider healthSlider;
 
     private void OnEnable()
     {
@@ -38,19 +46,32 @@ public class GameController : MonoBehaviour {
             case 0:
                 totalScore += 100;
                 totalCombo++;
+                if (currentHealth <= 100)
+                {
+                    currentHealth += mapHealthRecovery;
+                }
                 break;
             case 1:
                 totalScore += 50;
                 totalCombo++;
+                if (currentHealth <= 100)
+                {
+                    currentHealth += mapHealthRecovery;
+                }
                 break;
             case 2:
                 totalCombo = 0;
+                if (currentHealth > 0)
+                {
+                    currentHealth -= mapHealthDecay;
+                }
                 break;
         }
 
         scoreText.text = "" + totalScore;
         comboText.text = "" + totalCombo;
         accuracyText.text = "" + totalAccuracy;
+        healthSlider.value = currentHealth / 100;
 
     }
 
