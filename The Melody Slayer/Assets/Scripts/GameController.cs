@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -14,6 +15,10 @@ public class GameController : MonoBehaviour {
     private int totalCombo;
     private float totalAccuracy;
     private float currentHealth = 100;
+    private bool songHasStarted = false;
+
+    private float successfulHits;
+    private float totalHits;
 
     [SerializeField][Range(1, 100)]
     private int mapHealthRecovery;
@@ -46,6 +51,7 @@ public class GameController : MonoBehaviour {
             case 0:
                 totalScore += 100;
                 totalCombo++;
+                successfulHits++;
                 if (currentHealth <= 100)
                 {
                     currentHealth += mapHealthRecovery;
@@ -54,6 +60,7 @@ public class GameController : MonoBehaviour {
             case 1:
                 totalScore += 50;
                 totalCombo++;
+                successfulHits++;
                 if (currentHealth <= 100)
                 {
                     currentHealth += mapHealthRecovery;
@@ -67,12 +74,24 @@ public class GameController : MonoBehaviour {
                 }
                 break;
         }
-
+        totalHits++;
+        if (totalHits != 0)
+        {
+            totalAccuracy = (successfulHits / totalHits) * 100;
+        }
         scoreText.text = "" + totalScore;
         comboText.text = "" + totalCombo;
-        accuracyText.text = "" + totalAccuracy;
+        accuracyText.text = "" + totalAccuracy.ToString("F2") + "%";
         healthSlider.value = currentHealth / 100;
 
+    }
+
+    private void LateUpdate()
+    {
+        if (songHasStarted && !song.isPlaying)
+        {
+            Invoke("ReturnToMenu", 5f);
+        }
     }
 
     public void PlayButtonPressed()
@@ -80,7 +99,13 @@ public class GameController : MonoBehaviour {
         if (!song.isPlaying)
         {
             song.Play();
+            songHasStarted = true;
         }
         playButton.SetActive(false);
+    }
+
+    private void ReturnToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

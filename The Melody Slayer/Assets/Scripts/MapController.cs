@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MapController : MonoBehaviour {
 
@@ -95,5 +96,10 @@ public class MapController : MonoBehaviour {
     {
         endOfSong = false;
         StartCoroutine(waitForTimeDelay());
+    }
+
+    private void ReturnToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

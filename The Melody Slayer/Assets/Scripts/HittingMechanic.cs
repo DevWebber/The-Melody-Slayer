@@ -39,7 +39,7 @@ public class HittingMechanic : MonoBehaviour {
             if (isColliderActive[i])
             {
                 noteHit = noteQueue.Dequeue();
-                noteHit.SetActive(false);
+                Destroy(noteHit);
                 OnUpdateHits(i);
                 //hitColliders[i].enabled = false;
                 break;
@@ -53,7 +53,7 @@ public class HittingMechanic : MonoBehaviour {
     {
         //Simulate a miss
         noteHit = noteQueue.Dequeue();
-        noteHit.SetActive(false);
+        Destroy(noteHit);
         OnUpdateHits(2);
     }
 
