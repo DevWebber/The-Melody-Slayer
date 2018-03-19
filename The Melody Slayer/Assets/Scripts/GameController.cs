@@ -92,6 +92,11 @@ public class GameController : MonoBehaviour {
         {
             Invoke("ReturnToMenu", 5f);
         }
+
+        if (currentHealth <= 0 && songHasStarted)
+        {
+            ReturnToMenu();
+        }
     }
 
     public void PlayButtonPressed()
