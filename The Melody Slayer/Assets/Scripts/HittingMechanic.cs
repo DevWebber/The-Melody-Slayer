@@ -24,11 +24,6 @@ public class HittingMechanic : MonoBehaviour {
         isColliderActive = new bool[hitColliders.Length];
         noteQueue = new Queue<GameObject>();
     }
-	
-	void Update()
-    {
-		
-	}
 
     public void HitActivation()
     {

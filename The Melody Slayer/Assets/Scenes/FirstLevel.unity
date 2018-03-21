@@ -698,7 +698,7 @@ GameObject:
   - component: {fileID: 212657814}
   - component: {fileID: 212657813}
   m_Layer: 0
-  m_Name: Image
+  m_Name: TempBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

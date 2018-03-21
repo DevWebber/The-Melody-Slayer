@@ -64,7 +64,7 @@ public class MapController : MonoBehaviour {
         //currentTime = AudioSettings.dspTime;
 	}
      
-    IEnumerator waitForTimeDelay()
+    IEnumerator WaitForTimeDelay()
     {
         while (!endOfSong)
         {
@@ -95,7 +95,7 @@ public class MapController : MonoBehaviour {
     public void SpawnNote()
     {
         endOfSong = false;
-        StartCoroutine(waitForTimeDelay());
+        StartCoroutine(WaitForTimeDelay());
     }
 
     private void ReturnToMenu()
