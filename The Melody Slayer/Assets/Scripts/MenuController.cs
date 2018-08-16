@@ -274,7 +274,7 @@ public class MenuController : MonoBehaviour {
 
     public void OnButtonExit()
     {
-        selectionText.text = "Select the difficulty";
+        selectionText.text = "Select the level";
     }
 
     public void OnButtonExitControl()

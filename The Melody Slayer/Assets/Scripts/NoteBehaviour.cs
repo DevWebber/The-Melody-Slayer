@@ -14,6 +14,13 @@ public class NoteBehaviour : MonoBehaviour {
     {
         StartCoroutine(DisableAfterTime());
         selfBody = GetComponent<Rigidbody>();
+
+        MapController.OnUpdateNoteState += HandleOnUpdateState;
+    }
+
+    private void OnDisable()
+    {
+        
     }
 
     IEnumerator DisableAfterTime()
@@ -33,4 +40,25 @@ public class NoteBehaviour : MonoBehaviour {
             selfBody.velocity = transform.forward * (float)(-noteSpeed * Time.deltaTime);
         }
 	}
+
+    void HandleOnUpdateState(bool state)
+    {
+        if (state)
+        {
+            SetAlpha(gameObject.GetComponent<Renderer>().material, 0.2F);
+            Invoke("ResetAlphaChange", 10f);
+        }
+    }
+
+    private void ResetAlphaChange()
+    {
+        SetAlpha(gameObject.GetComponent<Renderer>().material, 1F);
+    }
+
+    public static void SetAlpha(Material material, float value)
+    {
+        Color color = material.color;
+        color.a = value;
+        material.color = color;
+    }
 }

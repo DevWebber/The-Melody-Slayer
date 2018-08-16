@@ -33,6 +33,9 @@ public class GameController : MonoBehaviour {
     private Text comboText;
     [SerializeField]
     private Slider healthSlider;
+    [SerializeField]
+    private CanvasGroup levelDeath;
+
 
     private void OnEnable()
     {
@@ -90,12 +93,13 @@ public class GameController : MonoBehaviour {
     {
         if (songHasStarted && !song.isPlaying)
         {
-            Invoke("ReturnToMenu", 5f);
+
+            Invoke("ReturnToMenu", 10f);
         }
 
         if (currentHealth <= 0 && songHasStarted)
         {
-            ReturnToMenu();
+            //TriggerDeath();
         }
     }
 
@@ -109,7 +113,17 @@ public class GameController : MonoBehaviour {
         playButton.SetActive(false);
     }
 
-    private void ReturnToMenu()
+    private void TriggerDeath()
+    {
+        Time.timeScale = 0;
+        song.Stop();
+
+        levelDeath.alpha = 1;
+        levelDeath.interactable = true;
+        levelDeath.blocksRaycasts = true;
+    }
+
+    public void ReturnToMenu()
     {
         SceneManager.LoadScene(0);
     }

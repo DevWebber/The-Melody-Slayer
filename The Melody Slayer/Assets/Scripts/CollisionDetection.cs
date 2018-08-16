@@ -13,7 +13,13 @@ public class CollisionDetection : MonoBehaviour {
     private bool isMissBarrier;
 
     private bool[] activeColliders;
+    MaterialPropertyBlock props;
 
+    private void Awake()
+    {
+        props = new MaterialPropertyBlock();
+        props.SetColor("Color", Color.red);
+    }
     private void OnEnable()
     {
         activeColliders = new bool[3];
@@ -36,6 +42,7 @@ public class CollisionDetection : MonoBehaviour {
             if (!parentScript.noteQueue.Contains(other.gameObject))
             {
                 parentScript.noteQueue.Enqueue(other.gameObject);
+                other.gameObject.GetComponent<Renderer>().SetPropertyBlock(props);
             }
         }
     }
